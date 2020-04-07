@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MovePiece : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class MovePiece : MonoBehaviour
     private bool isBeingHeld = false;
 
     public Vector3 rotationPoint;
+
+
 
     void Update()
     {
@@ -24,6 +27,10 @@ public class MovePiece : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.X))
             {
                 transform.RotateAround(rotationPoint, new Vector3(0, 0, 1), -90);
+            }
+            if(true)
+            {
+
             }
         }
     }
@@ -49,16 +56,7 @@ public class MovePiece : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
+   
 
-
-
-
-
-    }
-
-
-
-
+    
 }
