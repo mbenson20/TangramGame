@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MovePiece : MonoBehaviour
 {
     private float startPosX;
     private float startPosY;
     private bool isBeingHeld = false;
+    private int numMoves;
 
+    [SerializeField]
+    public int numTiles;
     public Vector3 rotationPoint;
-
+    public Text movesText;
+    
 
 
     void Update()
@@ -19,7 +24,9 @@ public class MovePiece : MonoBehaviour
         {
             Vector3 mousePos = Input.mousePosition;
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-            this.gameObject.transform.localPosition = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, 0);
+            this.gameObject.transform.localPosition = new Vector3(Mathf.Round(mousePos.x - startPosX), Mathf.Round(mousePos.y - startPosY), 0);
+            
+
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 transform.RotateAround(rotationPoint, new Vector3(0, 0, 1), 90);
@@ -28,11 +35,9 @@ public class MovePiece : MonoBehaviour
             {
                 transform.RotateAround(rotationPoint, new Vector3(0, 0, 1), -90);
             }
-            if(true)
-            {
-
-            }
         }
+
+        
     }
 
 
@@ -46,6 +51,9 @@ public class MovePiece : MonoBehaviour
             startPosX = mousePos.x - this.transform.localPosition.x;
             startPosY = mousePos.y - this.transform.localPosition.y;
             isBeingHeld = true;
+            numMoves++;
+            movesText.text = "moves: " + numMoves;
+            
         }
 
     }
