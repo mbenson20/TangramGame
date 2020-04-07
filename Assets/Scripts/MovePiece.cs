@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class MovePiece : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class MovePiece : MonoBehaviour
     [SerializeField]
     public int numTiles;
     public Vector3 rotationPoint;
-    public Text movesText;
+    public TMP_Text movesText;
     
 
 
@@ -50,9 +51,10 @@ public class MovePiece : MonoBehaviour
 
             startPosX = mousePos.x - this.transform.localPosition.x;
             startPosY = mousePos.y - this.transform.localPosition.y;
-            isBeingHeld = true;
             numMoves++;
-            movesText.text = "moves: " + numMoves;
+            //movesText.text = "moves: " + numMoves;
+            isBeingHeld = true;
+            
             
         }
 
@@ -61,6 +63,8 @@ public class MovePiece : MonoBehaviour
     private void OnMouseUp()
     {
         isBeingHeld = false;
+        
+        
 
     }
 
