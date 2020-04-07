@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MovePiece : MonoBehaviour
 {
     private float startPosX;
     private float startPosY;
     private bool isBeingHeld = false;
-    private int numMoves;
+    private int numMoves = 0;
+    private bool allTilesFilled = false;
 
     [SerializeField]
     public int numTiles;
@@ -18,11 +20,16 @@ public class MovePiece : MonoBehaviour
     public TMP_Text movesText;
     
 
+    void Start()
+    {
+        movesText.text = "moves: 0";
+    }
 
     void Update()
     {
-        if(isBeingHeld)
-        {
+        
+        if (isBeingHeld)
+        {   
             Vector3 mousePos = Input.mousePosition;
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
             this.gameObject.transform.localPosition = new Vector3(Mathf.Round(mousePos.x - startPosX), Mathf.Round(mousePos.y - startPosY), 0);
@@ -41,18 +48,27 @@ public class MovePiece : MonoBehaviour
         
     }
 
+    private void LateUpdate()
+    {
+        
+        if (allTilesFilled)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+    }
+
 
     private void OnMouseDown()
     {
         if(Input.GetMouseButtonDown(0))
         {
+            numMoves++;
             Vector3 mousePos = Input.mousePosition;
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
             startPosX = mousePos.x - this.transform.localPosition.x;
             startPosY = mousePos.y - this.transform.localPosition.y;
-            numMoves++;
-            //movesText.text = "moves: " + numMoves;
+            
             isBeingHeld = true;
             
             
